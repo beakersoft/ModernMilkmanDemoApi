@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ModernMilkmanDemoApi
 {
@@ -13,14 +14,55 @@ namespace ModernMilkmanDemoApi
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateWebHost(args).Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+        public static IWebHost CreateWebHost(string[] args)
+        {
+            return WebHost
+                .CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, builder) =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                        .AddEnvironmentVariables();
+
+                    Log.Logger = CreateLogger(context);
+
+                    Log.Information($@"Starting...
+Environment:            {context.HostingEnvironment.EnvironmentName}
+FrameworkDescription:   {RuntimeInformation.FrameworkDescription}
+OSDescription:          {RuntimeInformation.OSDescription}
+OSArchitecture:         {RuntimeInformation.OSArchitecture}
+ProcessArchitecture:    {RuntimeInformation.ProcessArchitecture}
+");
+
+                })
+                .ConfigureLogging(builder => { builder.ClearProviders(); })
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
+                .UseKestrel()
+                .UseStartup<Startup>()
+                .Build();
+        }
+
+        private static Serilog.ILogger CreateLogger(WebHostBuilderContext hostContext)
+        {
+            var loggerConfig = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .Enrich.WithProperty("API", hostContext.HostingEnvironment.ApplicationName)
+                .Enrich.WithProperty("env", hostContext.HostingEnvironment.EnvironmentName)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .MinimumLevel.Override("System", LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                .MinimumLevel.Information();
+
+            loggerConfig
+                .WriteTo.Console()
+                .WriteTo.File($"{AppDomain.CurrentDomain.BaseDirectory}/Logs/{hostContext.HostingEnvironment.ApplicationName}.log");
+
+            return loggerConfig.CreateLogger();
+        }
     }
+
 }

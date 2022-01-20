@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernMilkmanDemoApi", "ModernMilkmanDemoApi\ModernMilkmanDemoApi.csproj", "{265F1B89-1B62-4233-A0A6-8486E94D8A5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernMilkmanDemo.Api", "ModernMilkmanDemoApi\ModernMilkmanDemo.Api.csproj", "{265F1B89-1B62-4233-A0A6-8486E94D8A5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernMilkmanDemoApi.Core", "ModernMilkmanDemoApi.Core\ModernMilkmanDemoApi.Core\ModernMilkmanDemoApi.Core.csproj", "{B727024F-822E-4976-B927-F4DDF798E3BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernMilkmanDemoApi.Core", "ModernMilkmanDemoApi.Core\ModernMilkmanDemoApi.Core\ModernMilkmanDemoApi.Core.csproj", "{B727024F-822E-4976-B927-F4DDF798E3BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernMilkmanDemo.Test", "..\ModernMilkmanDemoModern\MilkmanDemo.Test\ModernMilkmanDemo.Test\ModernMilkmanDemo.Test.csproj", "{F501668A-D009-43D8-AB49-42BC4489574D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B727024F-822E-4976-B927-F4DDF798E3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B727024F-822E-4976-B927-F4DDF798E3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B727024F-822E-4976-B927-F4DDF798E3BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F501668A-D009-43D8-AB49-42BC4489574D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F501668A-D009-43D8-AB49-42BC4489574D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F501668A-D009-43D8-AB49-42BC4489574D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F501668A-D009-43D8-AB49-42BC4489574D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
