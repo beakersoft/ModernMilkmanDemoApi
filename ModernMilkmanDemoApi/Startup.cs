@@ -1,38 +1,27 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ModernMilkmanDemo.Api.Extensions;
+using ModernMilkmanDemoApi.Core.Data;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ModernMilkmanDemoApi
 {
     public class Startup
     {
-        private IConfiguration _configuration;
-
-
-        public Startup(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            //   .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Repository>()); ;
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRepository>());
 
             services
                .AddLogging()
                .AddSwagger()
+               .AddData()
                .AddApiVersionConfig()
                .AddOptions();
         }
@@ -49,7 +38,12 @@ namespace ModernMilkmanDemoApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "post API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
             });
         }
     }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using ModernMilkmanDemoApi.Core.Data;
 using System;
 using System.IO;
 using System.Reflection;
@@ -38,6 +40,10 @@ namespace ModernMilkmanDemo.Api.Extensions
                 });
         }
 
-
+        public static IServiceCollection AddData(this IServiceCollection services)
+        {
+            return services
+                .AddDbContext<DemoContext>(options => options.UseInMemoryDatabase(databaseName: "DemoDatabase"));
+        }
     }
 }
