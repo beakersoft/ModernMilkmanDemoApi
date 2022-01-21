@@ -12,6 +12,29 @@ namespace ModernMilkmanDemoApi.Core.Data.Configurations
             {
                 e.Id
             });
+
+            builder.Property(e => e.AddressLine1)
+                .IsRequired()
+                .HasMaxLength(80);
+
+            builder.Property(e => e.AddressLine2)
+                .HasMaxLength(80);
+
+            builder.Property(e => e.Town)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            builder.Property(e => e.County)
+                .HasMaxLength(50);
+
+
+            builder.Property(e => e.PostCode)
+                .IsRequired()
+                .HasMaxLength(10);
+
+            builder.Property(e => e.Country)
+                .HasMaxLength(50);
+
         }
     }
 }

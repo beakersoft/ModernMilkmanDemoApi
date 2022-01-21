@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hellang.Middleware.ProblemDetails;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using ModernMilkmanDemoApi.Core.Data;
+using ModernMilkmanDemoApi.Core.Exceptions;
+using ModernMilkmanDemoApi.Core.Validators;
 using System;
 using System.IO;
 using System.Reflection;
@@ -12,6 +17,19 @@ namespace ModernMilkmanDemo.Api.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddCommandsAndQueries(this IServiceCollection services)
+        {
+            services.AddProblemDetails(x => 
+            {
+                //x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
+                //x.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
+            });
+
+            return services
+                .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorPipelineBehavior<,>))
+                .AddMediatR(typeof(Repository));
+        }
+
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             return services

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ModernMilkmanDemoApi.Core.Data;
-using ModernMilkmanDemoApi.Core.Domain;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using ModernMilkmanDemoApi.Core.Handlers.Commands;
+using ModernMilkmanDemoApi.Core.Handlers.Queries;
+using ModernMilkmanDemoApi.Core.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,26 +13,60 @@ namespace ModernMilkmanDemo.Api.Controllers.V1
     [ApiVersion("1.0")]
     [Route("api/[controller]")]
     [Produces("application/json")]
-    public class ValuesController : ControllerBase
+    public class CustomersController : ControllerBase
     {
-        private IRepository _repository;
+        private readonly IMediator _mediator;
 
-        public ValuesController(IRepository repository)
+        public CustomersController(IMediator mediator)
         {
-            _repository = repository;
+            _mediator = mediator;   
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllCustomers(bool onlyActive = false)
+        {
+            var res = await _mediator.Send(new GetCustomersQuery(onlyActive));
+
+            if (!res.Any())
+                return NotFound();
+
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route("createcustomer")]
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerModel model)
+        {
+            var command = new CreateCustomerCommand(model);
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("updatecustomeractivestatus/{id}/{isActive}")]
+        public async Task<IActionResult> UpdateCustomerActiveStatus(int id, bool isActive)
+        {
+
+
+           return Ok();
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllCustomers()
+        [HttpDelete]
+        [Route("deletecustomeraddress/{id}")]
+        public async Task<IActionResult> DeleteCustomerAddress(int id)
         {
-            //create some dummy customers
-            //create the mediator pipeline 
-            //create the get request, let it have an include all optional flag
-            //return from the query, need to use the Tin, TOut of mediator
+        
+            return Ok();
+        }
 
-            var luke = await _repository.WhereAsync<Customer>(x => true);
-            return Ok(luke.ToList());
+        [HttpDelete]
+        [Route("deletecustomer/{id}")]
+        public async Task<IActionResult> DeleteCustomer(int id)
+        {
+
+            return Ok();
+
         }
     }
 }

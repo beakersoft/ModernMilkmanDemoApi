@@ -7,6 +7,7 @@ namespace ModernMilkmanDemoApi.Core.Domain
     {
         public Customer()
         {
+            Active = true;
             Address = new List<Address>();
         }
 

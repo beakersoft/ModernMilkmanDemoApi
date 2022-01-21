@@ -8,10 +8,33 @@ namespace ModernMilkmanDemoApi.Core.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.HasKey(e => new
+           builder.HasKey(e => new
             {
                 e.Id
             });
+
+            builder.Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(20);
+
+            builder.Property(e => e.Forename)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            builder.Property(e => e.Surname)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            builder.Property(e => e.EmailAddress)
+                .IsRequired()
+                .HasMaxLength(75);
+
+            builder.Property(e => e.MobileNumber)
+                .IsRequired()
+                .HasMaxLength(15);
+
+            builder.Property(e => e.Active)
+                .IsRequired();
 
             builder
                 .HasMany(d => d.Address)

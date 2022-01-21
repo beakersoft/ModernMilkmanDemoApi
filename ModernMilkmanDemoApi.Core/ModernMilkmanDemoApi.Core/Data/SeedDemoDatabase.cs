@@ -1,6 +1,5 @@
 ﻿using ModernMilkmanDemoApi.Core.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace ModernMilkmanDemoApi.Core.Data
@@ -22,7 +21,19 @@ namespace ModernMilkmanDemoApi.Core.Data
                 Forename = "Han",
                 Surname = "Solo",
                 EmailAddress = "han@bespin.com",
-                MobileNumber = "07787877"
+                MobileNumber = "07787877",
+                Active = true,
+            };
+
+            var customer2 = new Customer
+            {
+                CreatedUtc = DateTime.UtcNow,
+                Title = "Mr",
+                Forename = "Luke",
+                Surname = "Skywalker",
+                EmailAddress = "luke@yavin4.com",
+                MobileNumber = "07787878",
+                Active = false,
             };
 
             var address1 = new Address
@@ -35,10 +46,21 @@ namespace ModernMilkmanDemoApi.Core.Data
                 Customer = customer1,
             };
 
+            var address2 = new Address
+            {
+                CreatedUtc = DateTime.UtcNow,
+                AddressLine1 = "Rebel Base",
+                Town = "Yavin",
+                Country = "4",
+                PostCode = "BB8 222",
+                Customer = customer2,
+            };
+
             context.Customers.Add(customer1);
             context.Addresses.Add(address1);
+            context.Customers.Add(customer2);
+            context.Addresses.Add(address2);
 
-            
             context.SaveChanges();
 
         }
