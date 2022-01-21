@@ -15,8 +15,12 @@ namespace ModernMilkmanDemoApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRepository>());
+            services.AddControllers()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRepository>())
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+            
 
             services
                .AddLogging()

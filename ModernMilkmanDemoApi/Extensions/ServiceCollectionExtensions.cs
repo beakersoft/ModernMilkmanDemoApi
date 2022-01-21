@@ -43,7 +43,12 @@ namespace ModernMilkmanDemo.Api.Extensions
         public static IServiceCollection AddData(this IServiceCollection services)
         {
             return services
-                .AddDbContext<DemoContext>(options => options.UseInMemoryDatabase(databaseName: "DemoDatabase"));
+                    .AddScoped<IRepository, Repository>()
+                    .AddDbContext<DemoContext>(options => 
+                        options
+                            .UseLazyLoadingProxies()
+                            .UseInMemoryDatabase(databaseName: "DemoDatabase"
+                    ));
         }
     }
 }
