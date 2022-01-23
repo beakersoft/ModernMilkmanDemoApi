@@ -18,8 +18,8 @@ namespace ModernMilkmanDemoApi.Core.Models
 
         [Required, StringLength(10)]
         public string PostCode { get; set; }
-        
+
         [Required]
-        public bool PrimaryAddress { get; set; }    
+        public bool PrimaryAddress { get; set; }
     }
 }

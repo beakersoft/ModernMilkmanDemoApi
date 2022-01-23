@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace ModernMilkmanDemoApi.Core.Handlers.Commands
 {
-    public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand>
+    public class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerCommand>
     {
         private IRepository _repository;
 
-        public CreateCustomerCommandHandler(IRepository repository)
+        public DeleteCustomerCommandHandler(IRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
         {
-            var customer = Customer.FromModel(request.CustomerModel);
+            var customer = await _repository.GetByIdAsync<Customer>(request.Id);
 
-            await _repository.CreateAsync(customer);
+            _repository.Delete(customer);
             await _repository.SaveAsync();
 
             return Unit.Value;

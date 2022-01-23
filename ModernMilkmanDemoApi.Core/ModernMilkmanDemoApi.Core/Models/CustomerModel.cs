@@ -19,11 +19,11 @@ namespace ModernMilkmanDemoApi.Core.Models
 
         [Required, Phone, StringLength(15)]
         public string MobileNumber { get; set; }
-        
+
         [Required]
         public bool Active { get; set; }
 
         [Required]
-        public  ICollection<AddressModel> Addresses { get; set; }
+        public IList<AddressModel> Addresses { get; set; }
     }
 }

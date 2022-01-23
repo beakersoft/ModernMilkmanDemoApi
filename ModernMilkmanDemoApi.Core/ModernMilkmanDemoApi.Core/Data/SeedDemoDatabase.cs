@@ -13,7 +13,6 @@ namespace ModernMilkmanDemoApi.Core.Data
             if (context.Customers.Any())
                 return;
 
-
             var customer1 = new Customer
             {
                 CreatedUtc = DateTime.UtcNow,
@@ -44,6 +43,7 @@ namespace ModernMilkmanDemoApi.Core.Data
                 Country = "Bespin",
                 PostCode = "BB1 222",
                 Customer = customer1,
+                PrimaryAddress = true,
             };
 
             var address2 = new Address
@@ -56,10 +56,23 @@ namespace ModernMilkmanDemoApi.Core.Data
                 Customer = customer2,
             };
 
+            var address3 = new Address
+            {
+                CreatedUtc = DateTime.UtcNow,
+                AddressLine1 = "Tatooine",
+                Town = "Moss Espa",
+                Country = "Tatooine",
+                PostCode = "BB8 22X",
+                Customer = customer1,
+                PrimaryAddress = false,
+            };
+
+
             context.Customers.Add(customer1);
             context.Addresses.Add(address1);
             context.Customers.Add(customer2);
             context.Addresses.Add(address2);
+            context.Addresses.Add(address3);
 
             context.SaveChanges();
 

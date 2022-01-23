@@ -9,6 +9,6 @@ namespace ModernMilkmanDemoApi.Core.Handlers.Commands
             CustomerModel = customerModel;
         }
 
-        public CustomerModel CustomerModel { get;}
+        public CustomerModel CustomerModel { get; }
     }
 }

@@ -8,7 +8,7 @@ namespace ModernMilkmanDemoApi.Core.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-           builder.HasKey(e => new
+            builder.HasKey(e => new
             {
                 e.Id
             });
@@ -20,7 +20,7 @@ namespace ModernMilkmanDemoApi.Core.Data.Configurations
             builder.Property(e => e.Forename)
                 .IsRequired()
                 .HasMaxLength(50);
-            
+
             builder.Property(e => e.Surname)
                 .IsRequired()
                 .HasMaxLength(50);

@@ -1,13 +1,11 @@
 ﻿using Hellang.Middleware.ProblemDetails;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using ModernMilkmanDemoApi.Core.Data;
-using ModernMilkmanDemoApi.Core.Exceptions;
 using ModernMilkmanDemoApi.Core.Validators;
 using System;
 using System.IO;
@@ -19,7 +17,7 @@ namespace ModernMilkmanDemo.Api.Extensions
     {
         public static IServiceCollection AddCommandsAndQueries(this IServiceCollection services)
         {
-            services.AddProblemDetails(x => 
+            services.AddProblemDetails(x =>
             {
                 //x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
                 //x.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
@@ -62,7 +60,7 @@ namespace ModernMilkmanDemo.Api.Extensions
         {
             return services
                     .AddScoped<IRepository, Repository>()
-                    .AddDbContext<DemoContext>(options => 
+                    .AddDbContext<DemoContext>(options =>
                         options
                             .UseLazyLoadingProxies()
                             .UseInMemoryDatabase(databaseName: "DemoDatabase"

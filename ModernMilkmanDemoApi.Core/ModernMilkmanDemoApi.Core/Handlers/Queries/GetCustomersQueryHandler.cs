@@ -11,14 +11,14 @@ namespace ModernMilkmanDemoApi.Core.Handlers.Queries
     {
         private IRepository _repository;
 
-        public GetCustomersQueryHandler(IRepository repository) 
+        public GetCustomersQueryHandler(IRepository repository)
         {
             _repository = repository;
         }
 
         public async Task<IEnumerable<Customer>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
         {
-            var res = await _repository.WhereAsync<Customer>(x => (request.OnlyActive) ? x.Active == true : true );
+            var res = await _repository.WhereAsync<Customer>(x => (request.OnlyActive) ? x.Active == true : true);
 
             return res;
         }

@@ -20,19 +20,26 @@ namespace ModernMilkmanDemoApi.Core.Data
             _logger = logger;
         }
 
-        Task<T> IRepository.CreateAsync<T>(T entity)
+        public async Task<T> GetByIdAsync<T>(long id) where T : class, IBaseDomain
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        Task IRepository.DeleteAsync<T>(T entity)
+        public async Task<T> CreateAsync<T>(T entity) where T : class, IBaseDomain
         {
-            throw new NotImplementedException();
+            await _context.Set<T>().AddAsync(entity);
+            return entity;
         }
 
-        Task<T> IRepository.UpdateAsync<T>(T entity)
+        public void Delete<T>(T entity) where T : class, IBaseDomain
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Remove(entity);
+        }
+
+        public T Update<T>(T entity) where T : class, IBaseDomain
+        {
+            _context.Set<T>().Update(entity);
+            return entity;
         }
 
         public async Task<IList<T>> WhereAsync<T>(Expression<Func<T, bool>> predicate) where T : class, IBaseDomain
@@ -49,5 +56,20 @@ namespace ModernMilkmanDemoApi.Core.Data
                 return null;
             }
         }
+
+        public async Task SaveAsync()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Exception saving in repository", nameof(SaveAsync));
+                throw;
+            }
+        }
+
+
     }
 }

@@ -1,11 +1,9 @@
 using FluentValidation.AspNetCore;
 using Hellang.Middleware.ProblemDetails;
-using Hellang.Middleware.ProblemDetails.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ModernMilkmanDemo.Api.Extensions;
 using ModernMilkmanDemoApi.Core.Data;
@@ -38,7 +36,7 @@ namespace ModernMilkmanDemoApi
         {
             app.UseProblemDetails();
             loggerFactory.AddSerilog();
-            
+
             app.UseRouting();
 
             app.UseSwagger();

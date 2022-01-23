@@ -39,7 +39,7 @@ namespace ModernMilkmanDemoApi.Core.Validators
                     }
 
                     _logger.LogError(errorBuilder.ToString());
-                    throw new InvalidCommandException("Invalid command request", errorBuilder.ToString());
+                    throw new InvalidCommandException($"Invalid command request - {errorBuilder.ToString()}", errorBuilder.ToString());
                 }
             }
 

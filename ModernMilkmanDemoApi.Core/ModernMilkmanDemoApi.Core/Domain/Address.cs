@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModernMilkmanDemoApi.Core.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ModernMilkmanDemoApi.Core.Domain
@@ -25,5 +26,13 @@ namespace ModernMilkmanDemoApi.Core.Domain
 
         [Required]
         public virtual Customer Customer { get; set; }
+
+        public static Address FromModel(AddressModel model)
+        {
+            return new Address
+            {
+
+            };
+        }
     }
 }

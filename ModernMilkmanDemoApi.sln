@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernMilkmanDemo.Api", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernMilkmanDemoApi.Core", "ModernMilkmanDemoApi.Core\ModernMilkmanDemoApi.Core\ModernMilkmanDemoApi.Core.csproj", "{B727024F-822E-4976-B927-F4DDF798E3BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernMilkmanDemo.Test", "..\ModernMilkmanDemoModern\MilkmanDemo.Test\ModernMilkmanDemo.Test\ModernMilkmanDemo.Test.csproj", "{F501668A-D009-43D8-AB49-42BC4489574D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernMilkmanDemo.Test", "ModernMilkmanDemo.Test\ModernMilkmanDemo.Test.csproj", "{6E9E4143-5312-4C58-8FEC-1486D8EB9946}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{B727024F-822E-4976-B927-F4DDF798E3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B727024F-822E-4976-B927-F4DDF798E3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B727024F-822E-4976-B927-F4DDF798E3BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F501668A-D009-43D8-AB49-42BC4489574D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F501668A-D009-43D8-AB49-42BC4489574D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F501668A-D009-43D8-AB49-42BC4489574D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F501668A-D009-43D8-AB49-42BC4489574D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E9E4143-5312-4C58-8FEC-1486D8EB9946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E9E4143-5312-4C58-8FEC-1486D8EB9946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E9E4143-5312-4C58-8FEC-1486D8EB9946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E9E4143-5312-4C58-8FEC-1486D8EB9946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

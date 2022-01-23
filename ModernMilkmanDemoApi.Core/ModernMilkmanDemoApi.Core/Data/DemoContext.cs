@@ -9,7 +9,7 @@ namespace ModernMilkmanDemoApi.Core.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
-        public DemoContext(DbContextOptions<DemoContext> options) : base(options){}
+        public DemoContext(DbContextOptions<DemoContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
