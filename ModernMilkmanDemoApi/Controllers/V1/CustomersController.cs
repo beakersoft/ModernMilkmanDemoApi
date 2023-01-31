@@ -45,7 +45,6 @@ namespace ModernMilkmanDemo.Api.Controllers.V1
         }
 
         [HttpPost]
-        [Route("createcustomer")]
         public async Task<IActionResult> CreateCustomer([FromBody] CustomerModel model)
         {
             var command = new CreateCustomerCommand(model);
@@ -63,7 +62,6 @@ namespace ModernMilkmanDemo.Api.Controllers.V1
         }
 
         [HttpDelete]
-        [Route("deletecustomer/{id}")]
         public async Task<IActionResult> DeleteCustomer(long id)
         {
             var command = new DeleteCustomerCommand(id);
