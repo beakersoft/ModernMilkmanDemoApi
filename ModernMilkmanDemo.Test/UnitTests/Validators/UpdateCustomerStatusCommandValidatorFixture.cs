@@ -11,9 +11,9 @@ namespace ModernMilkmanDemo.Test.UnitTests.Validators
 {
     public class UpdateCustomerStatusCommandValidatorFixture
     {
-        private readonly UpdateCustomerStatusCommandValidator _validator;
-        private readonly Mock<IRepository> _mockRepository;
         private readonly Fixture _fixture;
+        private readonly Mock<IRepository> _mockRepository;
+        private readonly UpdateCustomerStatusCommandValidator _validator;
 
         public UpdateCustomerStatusCommandValidatorFixture()
         {

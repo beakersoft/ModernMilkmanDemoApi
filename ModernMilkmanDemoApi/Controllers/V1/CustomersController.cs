@@ -1,10 +1,9 @@
-﻿using MediatR;
+﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ModernMilkmanDemoApi.Core.Handlers.Commands;
 using ModernMilkmanDemoApi.Core.Handlers.Queries;
 using ModernMilkmanDemoApi.Core.Models;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ModernMilkmanDemo.Api.Controllers.V1
 {
@@ -14,8 +13,6 @@ namespace ModernMilkmanDemo.Api.Controllers.V1
     [Produces("application/json")]
     public class CustomersController : ControllerBase
     {
-        private readonly IMediator _mediator;
-
         public CustomersController(IMediator mediator)
         {
             _mediator = mediator;
@@ -27,9 +24,24 @@ namespace ModernMilkmanDemo.Api.Controllers.V1
             var res = await _mediator.Send(new GetCustomersQuery(onlyActive));
 
             if (!res.Any())
+            {
                 return NotFound();
+            }
 
             return Ok(res);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(int customerId)
+        {
+            var res = await _mediator.Send(new GetCustomerByIdQuery(customerId));
+
+            if (res == null)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
 
         [HttpPost]
@@ -48,16 +60,6 @@ namespace ModernMilkmanDemo.Api.Controllers.V1
             var command = new UpdateCustomerStatusCommand(id, isActive);
             await _mediator.Send(command);
             return Ok();
-        }
-
-
-        [HttpDelete]
-        [Route("deletecustomeraddress/{customerId}/{addressId}")]
-        public async Task<IActionResult> DeleteCustomerAddress(long customerId, long addressId)
-        {
-            var command = new DeleteCustomerAddressCommand(customerId, addressId);
-            var res = await _mediator.Send(command);
-            return Ok(res);
         }
 
         [HttpDelete]

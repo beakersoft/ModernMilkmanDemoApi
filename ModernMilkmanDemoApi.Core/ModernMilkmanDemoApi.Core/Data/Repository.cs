@@ -1,20 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using ModernMilkmanDemoApi.Core.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using ModernMilkmanDemoApi.Core.Domain;
 
 namespace ModernMilkmanDemoApi.Core.Data
 {
-    public class Repository : IRepository
+    public class Repositry : IRepository
     {
-        private readonly ILogger<Repository> _logger;
         public readonly DemoContext _context;
+        private readonly ILogger<Repositry> _logger;
 
-        public Repository(DemoContext context, ILogger<Repository> logger)
+        public Repositry(DemoContext context, ILogger<Repositry> logger)
         {
             _context = context;
             _logger = logger;
@@ -48,11 +48,13 @@ namespace ModernMilkmanDemoApi.Core.Data
             {
                 var set = _context.Set<T>().Where(predicate);
                 return await set.ToListAsync();
-
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Exception getting item(s) from repository for type of {nameof(T)}", nameof(WhereAsync));
+                _logger.LogError(
+                    e,
+                    $"Exception getting item(s) from repository for type of {nameof(T)}",
+                    nameof(WhereAsync));
                 return null;
             }
         }
@@ -65,11 +67,9 @@ namespace ModernMilkmanDemoApi.Core.Data
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Exception saving in repository", nameof(SaveAsync));
+                _logger.LogError(e, "Exception saving in repository", nameof(SaveAsync));
                 throw;
             }
         }
-
-
     }
 }

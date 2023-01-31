@@ -1,9 +1,10 @@
-﻿using ModernMilkmanDemoApi.Core.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MediatR;
+using ModernMilkmanDemoApi.Core.Domain;
 
 namespace ModernMilkmanDemoApi.Core.Handlers.Queries
 {
-    public class GetCustomersQuery : MediatR.IRequest<IEnumerable<Customer>>
+    public class GetCustomersQuery : IRequest<IEnumerable<Customer>>
     {
         public GetCustomersQuery(bool onlyActive)
         {

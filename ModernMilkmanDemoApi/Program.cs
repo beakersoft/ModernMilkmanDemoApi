@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,9 +9,7 @@ using Microsoft.Extensions.Logging;
 using ModernMilkmanDemoApi.Core.Data;
 using Serilog;
 using Serilog.Events;
-using System;
-using System.IO;
-using System.Runtime.InteropServices;
+using ILogger = Serilog.ILogger;
 
 namespace ModernMilkmanDemoApi
 {
@@ -40,23 +41,24 @@ namespace ModernMilkmanDemoApi
         {
             return WebHost
                 .CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, builder) =>
-                {
-                    builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                        .AddEnvironmentVariables();
+                .ConfigureAppConfiguration(
+                    (context, builder) =>
+                    {
+                        builder.AddJsonFile("appsettings.json", false, true)
+                            .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true, true)
+                            .AddEnvironmentVariables();
 
-                    Log.Logger = CreateLogger(context);
+                        Log.Logger = CreateLogger(context);
 
-                    Log.Information($@"Starting...
+                        Log.Information(
+                            $@"Starting...
 Environment:            {context.HostingEnvironment.EnvironmentName}
 FrameworkDescription:   {RuntimeInformation.FrameworkDescription}
 OSDescription:          {RuntimeInformation.OSDescription}
 OSArchitecture:         {RuntimeInformation.OSArchitecture}
 ProcessArchitecture:    {RuntimeInformation.ProcessArchitecture}
 ");
-
-                })
+                    })
                 .ConfigureLogging(builder => { builder.ClearProviders(); })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
@@ -65,7 +67,7 @@ ProcessArchitecture:    {RuntimeInformation.ProcessArchitecture}
                 .Build();
         }
 
-        private static Serilog.ILogger CreateLogger(WebHostBuilderContext hostContext)
+        private static ILogger CreateLogger(WebHostBuilderContext hostContext)
         {
             var loggerConfig = new LoggerConfiguration()
                 .Enrich.FromLogContext()
@@ -78,10 +80,10 @@ ProcessArchitecture:    {RuntimeInformation.ProcessArchitecture}
 
             loggerConfig
                 .WriteTo.Console()
-                .WriteTo.File($"{AppDomain.CurrentDomain.BaseDirectory}/Logs/{hostContext.HostingEnvironment.ApplicationName}.log");
+                .WriteTo.File(
+                    $"{AppDomain.CurrentDomain.BaseDirectory}/Logs/{hostContext.HostingEnvironment.ApplicationName}.log");
 
             return loggerConfig.CreateLogger();
         }
     }
-
 }
