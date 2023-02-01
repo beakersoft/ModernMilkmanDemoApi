@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using ModernMilkmanDemoApi.Core.Models;
 
 namespace ModernMilkmanDemoApi.Core.Domain
 {
@@ -35,10 +34,5 @@ namespace ModernMilkmanDemoApi.Core.Domain
         public DateTime CreatedUtc { get; set; }
 
         public DateTime? UpdatedUtc { get; set; }
-
-        public static Address FromModel(AddressModel model)
-        {
-            return new Address();
-        }
     }
 }
